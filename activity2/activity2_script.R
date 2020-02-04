@@ -298,3 +298,16 @@ hist(datW$PRCP[datW$siteN == 1],
      ylab="Relative frequency",
      col="grey50",
      border="white")
+
+# precipitation by year
+year_precip<-aggregate(datW$PRCP,by=list(NAME=datW$NAME,year=datW$year,siteN=datW$siteN),FUN=sum)
+
+
+# precip by year / histogram
+hist(year_precip$x[year_precip$siteN == 1],
+     freq=FALSE, 
+     main = paste(levels(year_precip$NAME)[1]),
+     xlab = "Yearly precipitation", 
+     ylab="Relative frequency",
+     col="grey50",
+     border="white")
