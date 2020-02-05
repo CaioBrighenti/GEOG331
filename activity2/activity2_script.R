@@ -311,3 +311,38 @@ hist(year_precip$x[year_precip$siteN == 1],
      ylab="Relative frequency",
      col="grey50",
      border="white")
+
+
+# mean temp and precipitation
+mean_temps <- c(mean(datW$TMAX[datW$siteN == 1], na.rm=TRUE),
+                mean(datW$TMAX[datW$siteN == 2], na.rm=TRUE),
+                mean(datW$TMAX[datW$siteN == 3], na.rm=TRUE),
+                mean(datW$TMAX[datW$siteN == 4], na.rm=TRUE),
+                mean(datW$TMAX[datW$siteN == 5], na.rm=TRUE))
+
+mean_precip <- c(mean(year_precip$x[year_precip$siteN == 1], na.rm=TRUE),
+                mean(year_precip$x[year_precip$siteN == 2], na.rm=TRUE),
+                mean(year_precip$x[year_precip$siteN == 3], na.rm=TRUE),
+                mean(year_precip$x[year_precip$siteN == 4], na.rm=TRUE),
+                mean(year_precip$x[year_precip$siteN == 5], na.rm=TRUE))
+
+site_names <- levels(year_precip$NAME)
+
+site_climate <- data.frame(
+   TMAX = mean_temps,
+   PRECIP = mean_precip,
+   NAME = site_names,
+   siteN = seq(1,5)
+)
+
+library(tidyverse)
+site_climate %>%
+   ggplot(aes(x=TMAX,y=PRECIP)) +
+   geom_point(aes(color=NAME)) +
+   theme_minimal() +
+   labs(
+      color="Site Name",
+      title="Mean Max Temperature and Mean Yearly Precipitation",
+      x="Max Temperature",
+      y="Yearly Precipitation"
+   )
