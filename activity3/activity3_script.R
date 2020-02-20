@@ -19,3 +19,24 @@ b <- c(8,4,5)
 assert(length(a) == length(b), "error: unequal length")
 
 library("lubridate")
+
+#read in the data file
+#skip the first 3 rows since there is additional column info
+#specify the the NA is designated differently
+datW <- read.csv("activity3/bewkes_weather.csv",
+                 na.strings=c("#N/A"), skip=3, header=FALSE)
+#preview data
+print(datW[1,])
+
+#get sensor info from file
+# this data table will contain all relevent units
+sensorInfo <-   read.csv("activity3/bewkes_weather.csv",
+                         na.strings=c("#N/A"), nrows=2)
+
+print(sensorInfo)
+
+#get column names from sensorInfo table
+# and set weather station colnames  to be the same
+colnames(datW) <-   colnames(sensorInfo)
+#preview data
+print(datW[1,])
