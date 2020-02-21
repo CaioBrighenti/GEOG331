@@ -200,6 +200,18 @@ datW %>%
   pull(doy)
 
 # making plots for question 9
+par(mfrow=c(2,2))
+plot(datW$doy, datW$air.tempQ2, pch=19, xlim=c(163,207), type="b", xlab = "Day of Year",
+     ylab="air temperature (degrees c)")
+
+plot(datW$doy, datW$wind.speedQ1, pch=19, xlim=c(163,207), type="b", xlab = "Day of Year",
+     ylab="Wind speed (m/s)")
+
+plot(datW$doy, datW$soil.moisture, pch=19, xlim=c(163,207), type="b", xlab = "Day of Year",
+     ylab="Soil moisture (cm3 of water per cm3 of soil)")
+
+plot(datW$doy, datW$soil.temp, pch=19, xlim=c(163,207), type="b", xlab = "Day of Year",
+     ylab="Soil temperature (degrees c)")
 
 
 
