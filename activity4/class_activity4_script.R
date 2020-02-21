@@ -49,17 +49,26 @@ plot(iris$Sepal.Length,iris$Sepal.Width)
 
 #3a. now make the same plot in ggplot
 ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width)) +
-  geom_point() +
-  theme_minimal()
+  geom_point()
 
 #3b. make a scatter plot with ggplot and get rid of  busy grid lines
+ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width)) +
+  geom_point() +
+  theme(panel.grid = element_blank(),
+        panel.background = element_blank())
 
 
 #3c.make a scatter plot with ggplot and get rid of grid lines
 #and show species by color increasing the point size
+ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width)) +
+  geom_point(aes(color=Species,size=Species)) +
+  theme(panel.grid = element_blank(),
+        panel.background = element_blank())
 
 #####################################
 ##### Question: how did         #####
 ##### arguments differ between  #####
 ##### plot and ggplot?          #####
 #####################################		
+# In ggplot, arguments and parameters are added in a modular form, by adding more geom_ elements and modifying the theme().
+# In plot, almost every argument tends to be within the plot() function.
