@@ -69,16 +69,6 @@ dev.new(width=8,height=8)
 
 #bigger margins
 par(mai=c(1,1,1,1))
-
-#make plot
-plot(aveF$doy,aveF$dailyAve, 
-     type="l", 
-     xlab="Year", 
-     ylab=expression(paste("Discharge ft"^"3 ","sec"^"-1")),
-     lwd=2)
-
-#bigger margins
-par(mai=c(1,1,1,1))
 #make plot
 plot(aveF$doy,aveF$dailyAve, 
      type="l", 
@@ -86,29 +76,52 @@ plot(aveF$doy,aveF$dailyAve,
      ylab=expression(paste("Discharge ft"^"3 ","sec"^"-1")),
      lwd=2,
      ylim=c(0,90),
-     xaxs="i", yaxs ="i")#remove gaps from axes  
-#show standard deviation around the mean
+     xaxs="i", yaxs ="i",#remove gaps from axes
+     axes=FALSE)#no axes
 polygon(c(aveF$doy, rev(aveF$doy)),#x coordinates
         c(aveF$dailyAve-sdF$dailySD,rev(aveF$dailyAve+sdF$dailySD)),#ycoord
         col=rgb(0.392, 0.584, 0.929,.2), #color that is semi-transparent
         border=NA#no border
-)
+)       
+axis(1, seq(0,360, by=40), #tick intervals
+     lab=seq(0,360, by=40)) #tick labels
+axis(2, seq(0,80, by=20),
+     seq(0,80, by=20),
+     las = 2)#show ticks at 90 degree angle
+legend("topright", c("mean","1 standard deviation"), #legend items
+       lwd=c(2,NA),#lines
+       col=c("black",rgb(0.392, 0.584, 0.929,.2)),#colors
+       pch=c(NA,15),#symbols
+       bty="n")#no legend border
 
 
+
+##### QUESTION 5
+library(dplyr)
 #bigger margins
 par(mai=c(1,1,1,1))
 #make plot
 plot(aveF$doy,aveF$dailyAve, 
      type="l", 
-     xlab="Year", 
+     xlab="Month", 
      ylab=expression(paste("Discharge ft"^"3 ","sec"^"-1")),
      lwd=2,
-     ylim=c(0,90),
-     xaxs="i", yaxs ="i")#remove gaps from axes  
-#show standard deviation around the mean
+     ylim=c(0,170),
+     xaxs="i", yaxs ="i",#remove gaps from axes
+     axes=FALSE)#no axes
+lines(filter(datD,year==2017)$doy,filter(datD,year==2017)$discharge,col="red") # add 
 polygon(c(aveF$doy, rev(aveF$doy)),#x coordinates
         c(aveF$dailyAve-sdF$dailySD,rev(aveF$dailyAve+sdF$dailySD)),#ycoord
         col=rgb(0.392, 0.584, 0.929,.2), #color that is semi-transparent
         border=NA#no border
-)
-  
+)       
+axis(1, seq(0,360, by=30), #tick intervals
+     lab=seq(0,12, by=1)) #tick labels
+axis(2, seq(0,160, by=20),
+     seq(0,160, by=20),
+     las = 2)#show ticks at 90 degree angle
+legend("topright", c("mean","1 standard deviation","2017"), #legend items
+       lwd=c(2,NA,2),#lines
+       col=c("black",rgb(0.392, 0.584, 0.929,.2),"red"),#colors
+       pch=c(NA,15,NA),#symbols
+       bty="n")#no legend border
