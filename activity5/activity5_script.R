@@ -259,6 +259,7 @@ datD3 %>%
         facet_wrap(~year) +
         theme_grey() +
         labs(x = "Season",
-             y = expression(paste("Discharge ft"^"3 ","sec"^"-1"))
-        )
-
+             y = expression(paste("Discharge ft"^"3 ","sec"^"-1")),
+             fill = "Season",
+             color = "Season"
+        ) 
