@@ -240,4 +240,8 @@ NDVIstack
 1 / max_mean
 
 # question 11
-NDVIraster
+NDVImean <- calc(NDVIstack,mean)
+x <- zonal(NDVImean, #NDVI function to summarize
+                    glacZones,#raster with zones
+                    "mean")#function to apply
+head(x)
