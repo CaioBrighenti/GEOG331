@@ -99,7 +99,7 @@ g2015p <- spTransform(g2015,NDVIraster[[1]]@crs)
 ### QUESTION 4
 length(NDVIraster)
 par(mfrow=c(1,1),mai=c(1,1,1,1))
-plot(NDVIraster[[13]],axes=FALSE)
+plot(NDVIraster[[13]],axes=FALSE,main="NDVI and glacier areas in 2015")
 plot(g2015p,axes=FALSE,add=TRUE,col=NA,border="black")
 
 
