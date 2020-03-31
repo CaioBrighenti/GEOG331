@@ -83,8 +83,8 @@ NDVIraster[[1]]@crs
 
 # dfouble plot
 par(mfrow=c(1,2),mai=c(1,1,1,1))
-plot(NDVIraster[[1]])
-plot(g1966,axes=TRUE,xaxs="i",yaxs="i")
+plot(NDVIraster[[1]], main = "NDVI for region in 2003")
+plot(g1966,axes=TRUE,xaxs="i",yaxs="i",main="Map of glaciers in region in 1966")
 
 
 
@@ -240,8 +240,27 @@ NDVIstack
 1 / max_mean
 
 # question 11
+## calculate mean accross whole period
 NDVImean <- calc(NDVIstack,mean)
-x <- zonal(NDVImean, #NDVI function to summarize
+
+## calculate means for each zone
+zoneMeans <- zonal(NDVImean, #NDVI function to summarize
                     glacZones,#raster with zones
                     "mean")#function to apply
-head(x)
+head(zoneMeans)
+
+# add to gAll frame
+gAll$meanNDVI <- zoneMeans[-1,2]
+g2015p$meanNDVI <- zoneMeans[-1,2]
+
+# visualize
+## relationship between NDVI and area
+plot(gAll$Area2015,gAll$meanNDVI, main="Relationship between glacier size and NDVI within 500 meters",xlab="Glacier Area",ylab="Mean NDVI")
+
+## map
+colfunc <- colorRampPalette(c("blue", "red"))
+cols <- colfunc(8)
+plot(NDVImean, axes=FALSE,main="Map showing mean NDVI and zonal NDVI for different glaciers")
+g2015p$NDVIcol <- cut(g2015p$meanNDVI, 8, labels = cols)#ifelse(g2015p$meanNDVI<0.2,"blue","red")
+plot(g2015p, add=TRUE, col=paste(g2015p$NDVIcol),border=FALSE)
+
